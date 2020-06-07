@@ -1,8 +1,18 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import StreamActions from "./components/StreamActions";
+import {loadEvents} from "./helpers/events"
+import {loadRtc} from "./helpers/rtc";
+import {Home} from "./components/Home";
+import {HeaderPrimary} from "./components/HeaderPrimary";
+import {Footer} from "./components/Footer";
 
 function App() {
+  useEffect(() => {
+    loadEvents();
+    loadRtc();
+  }, []);
   return (
     <div className="App">
         <div className="custom-modal" id='recording-options-modal'>
@@ -23,44 +33,18 @@ function App() {
                 </div>
             </div>
         </div>
-        
-        
-        <nav className="navbar fixed-top bg-info rounded-0 d-print-none">
-            <div className="text-white">Talk Desi</div>
+        <HeaderPrimary/>
 
-            <div className="pull-right room-comm" hidden>
-                <button className="btn btn-sm rounded-0 btn-no-effect" id='toggle-video' title="Hide Video">
-                    <i className="fa fa-video text-white"></i>
-                </button>
-
-                <button className="btn btn-sm rounded-0 btn-no-effect" id='toggle-mute' title="Mute">
-                    <i className="fa fa-microphone-alt text-white"></i>
-                </button>
-
-                <button className="btn btn-sm rounded-0 btn-no-effect" id='share-screen' title="Share screen">
-                    <i className="fa fa-desktop text-white"></i>
-                </button>
-
-                <button className="btn btn-sm rounded-0 btn-no-effect" id='record' title="Record">
-                    <i className="fa fa-dot-circle text-white"></i>
-                </button>
-
-                <button className="btn btn-sm text-white pull-right btn-no-effect" id='toggle-chat-pane'>
-                    <i className="fa fa-comment"></i> <span className="badge badge-danger very-small font-weight-lighter" id='new-chat-notification' hidden>New</span>
-                </button>
-
-                <button className="btn btn-sm rounded-0 btn-no-effect text-white">
-                    <a href="/" className="text-white text-decoration-none"><i className="fa fa-sign-out-alt text-white" title="Leave"></i></a>
-                </button>
-            </div>
-        </nav>
-
-        <div className="container-fluid" id='room-create' hidden>
+        <div className="container mt-5" id='room-create' hidden>
             <div className="row">
-                <div className="col-12 h2 mt-5 text-center">Create Room</div>
+                <div className="col-12 h2 mt-5 text-center">Let`s Talk</div>
             </div>
             
-            <div className="row mt-2">
+            <div className="mt-2">
+                <div className="col-12 col-md-4 offset-md-4 mb-3">
+                  <Home/>
+                </div>
+                <hr class="mt-4 mb-4"/>
                 <div className="col-12 text-center">
                     <span className="form-text small text-danger" id='err-msg'></span>
                 </div>
@@ -71,7 +55,7 @@ function App() {
                 </div>
 
                 <div className="col-12 col-md-4 offset-md-4 mb-3">
-                    <label for="your-name">Your Name</label>
+                    <label for="your-name">Enter As</label>
                     <input type="text" id='your-name' className="form-control rounded-0" placeholder="Your Name" />
                 </div>
 
@@ -131,6 +115,8 @@ function App() {
                 </div>
             </div>
         </div>
+        <StreamActions/>
+        <Footer/>
     </div>
   );
 }
