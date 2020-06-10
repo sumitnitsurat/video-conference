@@ -6,19 +6,19 @@ import h from './index.js';
 import io from 'socket.io-client';
 
 
-export const loadRtc = () => {
-    const room = h.getQString( window.location.href, 'room' );
+export const loadRtc = (meetingId) => {
+    const room = meetingId;
     const username = sessionStorage.getItem( 'username' );
 
-    if ( !room ) {
-        document.querySelector( '#room-create' ).attributes.removeNamedItem( 'hidden' );
-    }
+    // if ( !room ) {
+    //     document.querySelector( '#room-create' ).attributes.removeNamedItem( 'hidden' );
+    // }
 
-    else if ( !username ) {
-        document.querySelector( '#username-set' ).attributes.removeNamedItem( 'hidden' );
-    }
+    // else if ( !username ) {
+    //     document.querySelector( '#username-set' ).attributes.removeNamedItem( 'hidden' );
+    // }
 
-    else {
+    // else {
         let commElem = document.getElementsByClassName( 'room-comm' );
 
         for ( let i = 0; i < commElem.length; i++ ) {
@@ -440,6 +440,7 @@ export const loadRtc = () => {
              * Ask user what they want to record.
              * Get the stream based on selection and start recording
              */
+            console.log("recoerd is clien")
             if ( !mediaRecorder || mediaRecorder.state == 'inactive' ) {
                 h.toggleModal( 'recording-options-modal', true );
             }
@@ -484,5 +485,5 @@ export const loadRtc = () => {
                 } ).catch( () => { } );
             }
         } );
-    }
+    // }
 };

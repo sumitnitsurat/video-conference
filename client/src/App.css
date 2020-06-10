@@ -230,3 +230,8 @@
       z-index: 1000;
   }
 }
+
+.vl {
+  border-left: 2px solid #eee;
+  height: 500px;
+}

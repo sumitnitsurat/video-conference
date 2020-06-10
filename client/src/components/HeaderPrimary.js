@@ -1,8 +1,8 @@
 import * as React from "react";
 import {Navbar} from "react-bootstrap";
 
-export const HeaderPrimary = () => (
-    <Navbar sticky="top" bg="primary" variant="light">
+const Header = ({children}) => (
+    <Navbar className="justify-content-between bg-app" sticky="top" variant="light">
     <Navbar.Brand href="/">
       <img
         alt=""
@@ -13,5 +13,8 @@ export const HeaderPrimary = () => (
       />{' '}
       <span style={{color: "#fff", fontWeight: 600}}>Namaste Talk</span>
     </Navbar.Brand>
+    {children || null}
   </Navbar>
-)
+);
+
+export default Header;
