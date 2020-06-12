@@ -1,8 +1,8 @@
 import * as React from "react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Header from "../HeaderPrimary";
 import { loadEvents } from "../../helpers/events"
-import { loadRtc } from "../../helpers/rtc";
+import { loadRtc, record } from "../../helpers/rtc";
 import StreamActions from "../StreamActions";
 import RecodringView from "./Recording";
 import Button from "react-bootstrap/Button";
@@ -14,18 +14,33 @@ import {
   } from "react-router-dom";
 const MeetingRoom = () => {
     const {meetingId} = useParams();
+    const [isRecording, setIsRecording] = useState(false);
     let {push} = useHistory();
+
     useEffect(() => {
         loadEvents();
         loadRtc(meetingId);
     }, [meetingId]);
+
+    const startRecording = async (type) => {
+            const isStarted = await record(type);
+            console.log(isStarted)
+            setIsRecording(isStarted);
+    }
+
+    const stopRecording = () => {
+            record();
+            setIsRecording(false);
+    }
+
     return (
         <>
             <RecodringView />
             <Header>
                 <div>
-                <Button variant="info" id='record-video'>Record Video</Button>{'  '}
-                <Button variant="info" id='record-screen'>Record Screen</Button>{'   '}
+                {!isRecording && <Button variant="info" onClick={() => startRecording('media')}>Record Video</Button>}{'  '}
+                {!isRecording &&<Button variant="info" onClick={() => startRecording('screen')}>Record Screen</Button>}{'   '}
+                {isRecording && <Button variant="info" onClick={() => stopRecording()}>Stop Recording</Button>}{'   '}
                 <Button variant="danger" onClick={() => push("/")}>Leave Session</Button>{'  '}
                 </div>
             </Header>
@@ -40,7 +55,7 @@ const MeetingRoom = () => {
                         <div className="row mt-2 mb-2" id='videos'></div>
                     </div>
 
-                    <div className="col-md-3 chat-col d-print-none mb-2 bg-app" id='chat-pane' hidden>
+                    <div className="col-md-3 chat-col d-print-none mb-2 bg-app-secondary" id='chat-pane' hidden>
                         <div className="row">
                             <div className="col-12 text-center h2 mb-3">CHAT</div>
                         </div>

@@ -17,10 +17,6 @@ export default function StreamActions(props) {
                     <i className="fa fa-desktop fa-3x text-app"></i>
                 </button>
 
-                <button className="btn btn-sm rounded-0 btn-no-effect mr-3 mb-4" id='record' title="Record">
-                    <i className="fa fa-dot-circle fa-3x text-app"></i>
-                </button>
-
                 <button className="btn btn-sm text-app pull-right btn-no-effect mr-3 mb-4" id='toggle-chat-pane'>
                     <i className="fa fa-comment fa-3x"></i> <span className="badge badge-danger very-small font-weight-lighter" id='new-chat-notification' hidden>New</span>
                 </button>

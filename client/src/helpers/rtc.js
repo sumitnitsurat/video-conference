@@ -5,10 +5,6 @@
 import h from './index.js';
 import io from 'socket.io-client';
 
-
-    const room = meetingId;
-    const username = sessionStorage.getItem( 'username' );
-
     // if ( !room ) {
     //     document.querySelector( '#room-create' ).attributes.removeNamedItem( 'hidden' );
     // }
@@ -18,11 +14,7 @@ import io from 'socket.io-client';
     // }
 
     // else {
-        let commElem = document.getElementsByClassName( 'room-comm' );
-
-        for ( let i = 0; i < commElem.length; i++ ) {
-            commElem[i].attributes.removeNamedItem( 'hidden' );
-        }
+        
 
         var pc = [];
 
@@ -35,7 +27,12 @@ import io from 'socket.io-client';
         var mediaRecorder = '';
 
     export const loadRtc = (meetingId) => {
-
+        const room = meetingId;
+        let commElem = document.getElementsByClassName( 'room-comm' );
+        const username = sessionStorage.getItem( 'username' );
+        for ( let i = 0; i < commElem.length; i++ ) {
+            commElem[i].attributes.removeNamedItem( 'hidden' );
+        }
         //Get user video by default
         getAndSetUserStream();
 
@@ -206,8 +203,8 @@ import io from 'socket.io-client';
                     //video controls elements
                     let controlDiv = document.createElement( 'div' );
                     controlDiv.className = 'remote-video-controls';
-                    controlDiv.innerHTML = `<i class="fa fa-microphone text-white pr-3 mute-remote-mic" title="Mute"></i>
-                        <i class="fa fa-expand text-white expand-remote-video" title="Expand"></i>`;
+                    controlDiv.innerHTML = `<i class="fa fa-microphone text-app pr-3 mute-remote-mic" title="Mute"></i>
+                        <i class="fa fa-expand text-app expand-remote-video" title="Expand"></i>`;
 
                     //create a new div for card
                     let cardDiv = document.createElement( 'div' );
@@ -316,42 +313,14 @@ import io from 'socket.io-client';
             if ( isRecording ) {
                 e.setAttribute( 'title', 'Stop recording' );
                 e.children[0].classList.add( 'text-danger' );
-                e.children[0].classList.remove( 'text-white' );
+                e.children[0].classList.remove( 'text-app' );
             }
 
             else {
                 e.setAttribute( 'title', 'Record' );
-                e.children[0].classList.add( 'text-white' );
+                e.children[0].classList.add( 'text-app' );
                 e.children[0].classList.remove( 'text-danger' );
             }
-        }
-
-
-        function startRecording( stream ) {
-            mediaRecorder = new MediaRecorder( stream, {
-                mimeType: 'video/webm;codecs=vp9'
-            } );
-
-            mediaRecorder.start( 1000 );
-            toggleRecordingIcons( true );
-
-            mediaRecorder.ondataavailable = function ( e ) {
-                recordedStream.push( e.data );
-            };
-
-            mediaRecorder.onstop = function () {
-                toggleRecordingIcons( false );
-
-                h.saveRecordedStream( recordedStream, username );
-
-                setTimeout( () => {
-                    recordedStream = [];
-                }, 3000 );
-            };
-
-            mediaRecorder.onerror = function ( e ) {
-                console.error( e );
-            };
         }
 
 
@@ -448,8 +417,11 @@ export const record = ( type = 'screen' ) => {
      */
     console.log("recoerd is clien")
     if ( !mediaRecorder || mediaRecorder.state == 'inactive' ) {
-        if(type === 'screen') recordScreen();
-        else recordVideo(); 
+        if(type === 'screen') { 
+            return recordScreen();
+        } else {
+            return recordVideo(); 
+        }
     }
 
     else if ( mediaRecorder.state == 'paused' ) {
@@ -461,18 +433,49 @@ export const record = ( type = 'screen' ) => {
     }
 }
 
+function startRecording( stream ) {
+    const username = sessionStorage.getItem( 'username' );
+    mediaRecorder = new MediaRecorder( stream, {
+        mimeType: 'video/webm;codecs=vp9'
+    } );
+
+    mediaRecorder.start( 1000 );
+
+    mediaRecorder.ondataavailable = function ( e ) {
+        recordedStream.push( e.data );
+    };
+
+    mediaRecorder.onstop = function () {
+
+        h.saveRecordedStream( recordedStream, username );
+
+        setTimeout( () => {
+            recordedStream = [];
+        }, 3000 );
+    };
+
+    mediaRecorder.onerror = function ( e ) {
+        console.error( e );
+    };
+}
+
 
 //When user choose to record screen
 const recordScreen = () => {
 
     if ( screen && screen.getVideoTracks().length ) {
         startRecording( screen );
+        return true;
     }
 
     else {
-        h.shareScreen().then( ( screenStream ) => {
+        return h.shareScreen().then( ( screenStream ) => {
             startRecording( screenStream );
-        } ).catch( () => { } );
+            return true;
+        } ).catch( () => { 
+            //throw new Error('recording canceled');
+            return false;
+        } );
     }
 }
 
@@ -482,11 +485,13 @@ const recordVideo = () => {
 
     if ( myStream && myStream.getTracks().length ) {
         startRecording( myStream );
+        return true;
     }
 
     else {
         h.getUserFullMedia().then( ( videoStream ) => {
             startRecording( videoStream );
-        } ).catch( () => { } );
+            return true;
+        } ).catch( () => { return false; } );
     }
 }

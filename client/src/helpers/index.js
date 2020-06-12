@@ -198,12 +198,12 @@ export default {
         if ( share ) {
             shareIconElem.setAttribute( 'title', 'Stop sharing screen' );
             shareIconElem.children[0].classList.add( 'text-primary' );
-            shareIconElem.children[0].classList.remove( 'text-white' );
+            shareIconElem.children[0].classList.remove( 'text-app' );
         }
 
         else {
             shareIconElem.setAttribute( 'title', 'Share screen' );
-            shareIconElem.children[0].classList.add( 'text-white' );
+            shareIconElem.children[0].classList.add( 'text-app' );
             shareIconElem.children[0].classList.remove( 'text-primary' );
         }
     },
@@ -319,8 +319,8 @@ export default {
             //video controls elements
             let controlDiv = document.createElement( 'div' );
             controlDiv.className = 'remote-video-controls';
-            controlDiv.innerHTML = `<i class="fa fa-microphone text-white pr-3 mute-remote-mic" title="Mute"></i>
-                <i class="fa fa-expand text-white expand-remote-video" title="Expand"></i>`;
+            controlDiv.innerHTML = `<i class="fa fa-microphone text-app pr-3 mute-remote-mic" title="Mute"></i>
+                <i class="fa fa-expand text-app expand-remote-video" title="Expand"></i>`;
 
             //create a new div for card
             let cardDiv = document.createElement( 'div' );
