@@ -6,7 +6,6 @@ import h from './index.js';
 import io from 'socket.io-client';
 
 
-export const loadRtc = (meetingId) => {
     const room = meetingId;
     const username = sessionStorage.getItem( 'username' );
 
@@ -34,6 +33,8 @@ export const loadRtc = (meetingId) => {
         var screen = '';
         var recordedStream = [];
         var mediaRecorder = '';
+
+    export const loadRtc = (meetingId) => {
 
         //Get user video by default
         getAndSetUserStream();
@@ -434,56 +435,58 @@ export const loadRtc = (meetingId) => {
         } );
 
 
-        //When record button is clicked
-        document.getElementById( 'record' ).addEventListener( 'click', ( e ) => {
-            /**
-             * Ask user what they want to record.
-             * Get the stream based on selection and start recording
-             */
-            console.log("recoerd is clien")
-            if ( !mediaRecorder || mediaRecorder.state == 'inactive' ) {
-                h.toggleModal( 'recording-options-modal', true );
-            }
-
-            else if ( mediaRecorder.state == 'paused' ) {
-                mediaRecorder.resume();
-            }
-
-            else if ( mediaRecorder.state == 'recording' ) {
-                mediaRecorder.stop();
-            }
-        } );
-
-
-        //When user choose to record screen
-        document.getElementById( 'record-screen' ).addEventListener( 'click', () => {
-            h.toggleModal( 'recording-options-modal', false );
-
-            if ( screen && screen.getVideoTracks().length ) {
-                startRecording( screen );
-            }
-
-            else {
-                h.shareScreen().then( ( screenStream ) => {
-                    startRecording( screenStream );
-                } ).catch( () => { } );
-            }
-        } );
-
-
-        //When user choose to record own video
-        document.getElementById( 'record-video' ).addEventListener( 'click', () => {
-            h.toggleModal( 'recording-options-modal', false );
-
-            if ( myStream && myStream.getTracks().length ) {
-                startRecording( myStream );
-            }
-
-            else {
-                h.getUserFullMedia().then( ( videoStream ) => {
-                    startRecording( videoStream );
-                } ).catch( () => { } );
-            }
-        } );
+       
     // }
 };
+
+
+ //When record button is clicked
+export const record = ( type = 'screen' ) => {
+    /**
+     * Ask user what they want to record.
+     * Get the stream based on selection and start recording
+     */
+    console.log("recoerd is clien")
+    if ( !mediaRecorder || mediaRecorder.state == 'inactive' ) {
+        if(type === 'screen') recordScreen();
+        else recordVideo(); 
+    }
+
+    else if ( mediaRecorder.state == 'paused' ) {
+        mediaRecorder.resume();
+    }
+
+    else if ( mediaRecorder.state == 'recording' ) {
+        mediaRecorder.stop();
+    }
+}
+
+
+//When user choose to record screen
+const recordScreen = () => {
+
+    if ( screen && screen.getVideoTracks().length ) {
+        startRecording( screen );
+    }
+
+    else {
+        h.shareScreen().then( ( screenStream ) => {
+            startRecording( screenStream );
+        } ).catch( () => { } );
+    }
+}
+
+
+//When user choose to record own video
+const recordVideo = () => {
+
+    if ( myStream && myStream.getTracks().length ) {
+        startRecording( myStream );
+    }
+
+    else {
+        h.getUserFullMedia().then( ( videoStream ) => {
+            startRecording( videoStream );
+        } ).catch( () => { } );
+    }
+}

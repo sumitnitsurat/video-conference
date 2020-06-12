@@ -12,7 +12,7 @@ function App(props) {
   return (
     <>
         <Header>
-          <Button variant="info" onClick={() => history.push("/private")}>Join Secure Meeting</Button>
+          <Button variant="outline-info" onClick={() => history.push("/private")}>Join Secure Meeting</Button>
         </Header>
 
         <div className="container mt-5" id='room-create'>

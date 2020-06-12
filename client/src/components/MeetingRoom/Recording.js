@@ -1,5 +1,7 @@
-import React from "react";
-const RecordingView =  () => (<div className="custom-modal" id='recording-options-modal' style={{display: 'none'}}>
+import React, { useState } from "react";
+const RecordingView =  () => {
+    const [isRecording, setIsRecording] = useState(false);
+    (<div className="custom-modal" id='recording-options-modal' style={{display: 'none'}}>
             <div className="custom-modal-content">
                 <div className="row text-center">
                     <div className="col-md-6 mb-2">
@@ -17,5 +19,6 @@ const RecordingView =  () => (<div className="custom-modal" id='recording-option
                 </div>
             </div>
         </div>);
+}
 
 export default RecordingView;
