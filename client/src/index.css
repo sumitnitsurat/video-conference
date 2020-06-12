@@ -21,9 +21,13 @@ code {
 }
 
 .bg-app {
-  background-color: #1C3555;
+  background-color: #1C3555 !important;
+}
+
+.bg-app-secondary {
+  background-color: #0B376F !important;
 }
 
 .text-app {
-    color: #1C3555;
+    color: #1C3555 !important;
 }

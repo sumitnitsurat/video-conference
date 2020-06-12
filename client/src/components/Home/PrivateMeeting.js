@@ -31,7 +31,7 @@ export const PrivateMeeting = () => {
                     <input type="text" onChange={(e) => setUserName(e.target.value)} className="form-control rounded-0" placeholder="Your Name" />
                 </div>
                 <div className="mb-3">
-                    <Button variant="primary" size="lg" style={{width: '100%'}} onClick={makeRoom}>
+                    <Button className="bg-app" size="lg" style={{width: '100%'}} onClick={makeRoom}>
                         Create Secure Session
                     </Button>
                 </div>

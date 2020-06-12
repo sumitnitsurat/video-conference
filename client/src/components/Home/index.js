@@ -12,7 +12,7 @@ export const Home = () => {
     return (
         <>
             <p>Create instant session for anyone to share and join via link</p>
-            <Button variant="primary" size="lg" style={{width: '100%'}} onClick={makeRoom}>
+            <Button className="bg-app" size="lg" style={{width: '100%'}} onClick={makeRoom}>
                 Create New Session
             </Button>
             { roomLink && <div className="mt-2">
