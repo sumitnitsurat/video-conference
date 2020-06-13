@@ -38,9 +38,9 @@ const MeetingRoom = () => {
             <RecodringView />
             <Header>
                 <div>
-                {!isRecording && <Button variant="info" onClick={() => startRecording('media')}>Record Video</Button>}{'  '}
-                {!isRecording &&<Button variant="info" onClick={() => startRecording('screen')}>Record Screen</Button>}{'   '}
-                {isRecording && <Button variant="info" onClick={() => stopRecording()}>Stop Recording</Button>}{'   '}
+                {!isRecording && <Button variant="outline-info" onClick={() => startRecording('media')}>Record Video</Button>}{'  '}
+                {!isRecording &&<Button variant="outline-info" onClick={() => startRecording('screen')}>Record Screen</Button>}{'   '}
+                {isRecording && <Button variant="outline-danger" onClick={() => stopRecording()}>Stop Recording</Button>}{'   '}
                 <Button variant="danger" onClick={() => push("/")}>Leave Session</Button>{'  '}
                 </div>
             </Header>
