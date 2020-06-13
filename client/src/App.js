@@ -17,7 +17,7 @@ function App(props) {
 
         <div className="container mt-5" id='room-create'>
             <div className="col-12 h2 mt-5 text-center">
-              <img width="100" src="./logo.png"/>
+              <img width="100" src="/assets/logo.png"/>
             </div>
             
             <div className="row mt-2">
