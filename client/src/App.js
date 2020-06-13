@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import './App.css';
 import {Home} from "./components/Home";
+import {Features} from "./components/Home/Features";
 import Header from "./components/HeaderPrimary";
 import {Footer} from "./components/Footer";
 import {PrivateMeeting} from "./components/Home/PrivateMeeting";
@@ -31,7 +32,7 @@ function App(props) {
             </div>
         </div>
 
-
+        <Features/>
 
         <div className="container-fluid" id='username-set' hidden>
             <div className="row">
