@@ -299,6 +299,7 @@ export default {
 
         for ( let i = 0; i < totalRemoteVideosDesktop; i++ ) {
             elem[i].style.width = newWidth;
+            elem[i].style.maxWidth = "600px";
         }
     },
 
