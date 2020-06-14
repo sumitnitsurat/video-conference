@@ -1,9 +1,9 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import "./actions.css";
 
 export default function StreamActions(props) {
   return (
-    <nav className="col-4 col-md-4 col-xs-12 offset-md-4 fixed-bottom rounded-0 d-print-none" style={{zIndex: 999}}>
+    <nav className="col-4 col-md-4 col-xs-12 offset-md-5 fixed-bottom rounded-0 stream-actions" style={{zIndex: 999}}>
             <div className="pull-right room-comm" hidden>
                 <button className="btn btn-sm rounded-0 btn-no-effect mr-3 mb-4" id='toggle-video' title="Hide Video">
                     <i className="fa fa-video fa-3x text-app"></i>

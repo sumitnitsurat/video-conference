@@ -38,20 +38,20 @@ const MeetingRoom = () => {
             <RecodringView />
             <Header>
                 <div>
-                {!isRecording && <Button variant="outline-info" onClick={() => startRecording('media')} style={{marginRight: 10}}>Record Video</Button>}{'  '}
-                {!isRecording &&<Button variant="outline-info" onClick={() => startRecording('screen')} style={{marginRight: 10}}>Record Screen</Button>}{'   '}
-                {isRecording && <Button variant="outline-danger" onClick={() => stopRecording()} style={{marginRight: 10}}>Stop Recording</Button>}{'   '}
-                <Button variant="danger" onClick={() => push("/")}>Leave Session</Button>{'  '}
+                {!isRecording && <Button variant="outline-info" onClick={() => startRecording('media')} style={{marginRight: 10, marginTop: 5}}>Record Video</Button>}{'  '}
+                {!isRecording &&<Button variant="outline-info" onClick={() => startRecording('screen')} style={{marginRight: 10, marginTop: 5}}>Record Screen</Button>}{'   '}
+                {isRecording && <Button variant="outline-danger" onClick={() => stopRecording()} style={{marginRight: 10, marginTop: 5}}>Stop Recording</Button>}{'   '}
+                <Button variant="danger" onClick={() => push("/")} style={{marginRight: 10, marginTop: 5}}>Leave Session</Button>{'  '}
                 </div>
             </Header>
 
             <div className="container-fluid">
                 <div className="row">
-                    <video className="local-video mirror-mode" id='local' volume='0' autoPlay muted></video>
                 </div>
 
                 <div className="row">
                     <div className="col-md-12 main" id='main-section'>
+                        <video className="local-video mirror-mode" id='local' volume='0' autoPlay muted></video>
                         <div className="row mt-2 mb-2" id='videos'></div>
                     </div>
 
