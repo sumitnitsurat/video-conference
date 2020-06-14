@@ -5,6 +5,8 @@
 import h from './index.js';
 import io from 'socket.io-client';
 
+const url = process.env.NODE_ENV === 'production' ? "https://api.namaste.ind.in" : "http://localhost:5000" 
+
     // if ( !room ) {
     //     document.querySelector( '#room-create' ).attributes.removeNamedItem( 'hidden' );
     // }
@@ -18,7 +20,7 @@ import io from 'socket.io-client';
 
         var pc = [];
 
-        let socket = io( '/stream' );
+        let socket = io( `${url}/stream` );
 
         var socketId = '';
         var myStream = '';
